@@ -56,7 +56,8 @@
                             <span id="span4" style="display:none">联系电话:<input type="text" name="schat" /></span>
                             <span id="span5" style="display:none">工厂地址:<input type="text" name="sadress" /></span>
                             <span id="span6" style="display:none">职员姓名:<input type="text" name="aname" /></span>
-                            <span id="span7" style="display:none">负责职务:<label><input  name="aposition" type="radio" value="admin"  />管理员 </label><label><input name="aposition" type="radio" value="staff"/>普通员工 </label></span>
+                            <span id="span7" style="display:none">负责职务:<label><input  name="aposition" type="radio" value="admin" onclick="divClick4();" />管理员 </label><label><input name="aposition" type="radio" value="staff"/>普通员工 </label></span>
+                            <span id="span8" style="display:none">药房名字:<input type="text" name="pname" /></span>
 
                             <label><input name="kind" type="radio" value="1" onclick="divClick();"/>顾客 </label>
                             <label><input name="kind" type="radio" value="2" onclick="divClick2();"/>供应商 </label>
@@ -98,6 +99,9 @@ function divClick3(){
     document.getElementById("span5").style.display="none";
     document.getElementById("span6").style.display="block";
     document.getElementById("span7").style.display="block";
+}
+function divClick4(){
+        document.getElementById("span8").style.display="block";
 }
 </script>
 </html>

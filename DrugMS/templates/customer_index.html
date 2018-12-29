@@ -31,13 +31,23 @@
                         <a href="http://0.0.0.0:8000/customer/c_index/">ALL</a>
                         {% for a in categories %}
 					<a href={{ a }}>{{a}}</a>{% endfor %}</h3></div>{% endblock %}
-				<div>{% for c in products %}
-					<a>{{ c.dno }}</a>
-					<a>{{ c.sno.sname }}</a>
-					<a>{{ c.dname }}</a>
-					<a>{{ c.ddate }}</a>
-					<a>{{ c.dill }}</a>
-					<br />{% endfor %}</div></div>
+                <table width="400" border="1">
+                <tr>
+                      <th align="left">药品编号</th>
+                      <th align="left">药品名字</th>
+                      <th align="left">供应商</th>
+                      <th align="left">过期日期</th>
+                      <th align="left">主治病症</th>
+                </tr>
+                {% for c in products %}
+                <tr>
+                      <th align="left">{{ c.dno }}</th>
+                      <th align="left">{{ c.dname }}</th>
+                      <th align="left">{{ c.sno.sname }}</th>
+                      <th align="left">{{ c.ddate }}</th>
+                      <th align="left">{{ c.dill }}</th>
+                </tr>
+					{% endfor %}</table></div>
 		</div>
 		<script type="text/javascript">
 			}</script>

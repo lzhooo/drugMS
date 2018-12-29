@@ -6,6 +6,7 @@ from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from .models import customer5142,staff5142,supply5142
 from django.db import transaction
+from stock.models import shop5142
 
 class UserForm(forms.Form):
     username = forms.CharField(label='用户名',max_length=100)
@@ -19,6 +20,7 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         re = auth.authenticate(username=username,password=password)  #用户认证
         if re is not None:  #如果数据库里有记录（即与数据库里的数据相匹配或者对应或者符合）
             auth.login(request,re)   #登陆成功
@@ -62,7 +64,11 @@ def regist(request):
                 return render(request, 'regist.html', {'registAdd': registAdd, 'username': username})
 
             else:
+                if kind=='3' and aposition == 'admin':
+                    shop = request.POST.get('pname')
+                    admin=staff5142.objects.filter(ano=username).first()
 
+                    shop5142.objects.create(ano=admin, pname=shop, pno=username)
                 return render(request, 'login.html', {'registAdd': registAdd})
                 # return render_to_response('share.html',{'registAdd':registAdd},context_instance = RequestContext(request))
     else:
