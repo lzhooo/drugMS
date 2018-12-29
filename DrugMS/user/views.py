@@ -24,6 +24,12 @@ def login(request):
         re = auth.authenticate(username=username,password=password)  #用户认证
         if re is not None:  #如果数据库里有记录（即与数据库里的数据相匹配或者对应或者符合）
             auth.login(request,re)   #登陆成功
+            if len(customer5142.objects.filter(cno=username))>0:
+                return redirect('/customer/', {'user': re})
+            if len(supply5142.objects.filter(sno=username))>0:
+                return redirect('/supply/', {'user': re})
+            if len(staff5142.objects.filter(ano=username))>0:
+                return redirect('/shop/', {'user': re})
             return redirect('/user/index/',{'user':re})    #跳转--redirect指从一个旧的url转到一个新的url
         else:  #数据库里不存在与之对应的数据
             return render(request,'login.html',{'login_error':'用户名或密码错误'})  #注册失败

@@ -1,0 +1,84 @@
+<html lang="en" xmlns:customer="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="A layout example that shows off a blog page with a list of posts." />
+		<title>DrugMS</title>
+		<link rel="stylesheet" href="http://labfile.oss.aliyuncs.com/courses/487/pure-min.css" />
+		<link rel="stylesheet" href="http://labfile.oss.aliyuncs.com/courses/487/grids-responsive-min.css" />
+		<link rel="stylesheet" href="http://labfile.oss.aliyuncs.com/courses/487/blog.css" />
+		<link href="favicon.ico" rel="shortcut icon" /></head>
+	<body>
+		<div id="layout" class="pure-g">
+			<div class="sidebar pure-u-1 pure-u-md-1-4">
+				<div class="header">
+					<!--<h1 class="brand-title"><a href="#"> wuli 小说</a></h1>-->
+					<h2 class="brand-tagline">药品管理系统</h2>
+					<nav class="nav">
+						<ul class="nav-list">
+							<li class="nav-item">{% if user.is_authenticated %}
+								<a class="button-success pure-button" href="http://0.0.0.0:8000/user/article/">{{ user.username }}</a>
+								<a class="button-success pure-button" href="http://0.0.0.0:8000/user/logout/">退出</a>{% else %}
+								<a class="button-success pure-button" href="http://0.0.0.0:8000/user/regist/">注册</a>
+								<a class="button-success pure-button" href="http://0.0.0.0:8000/user/login/">登录</a>{% endif %}</li></ul>
+					</nav>
+				</div>
+			</div>
+			<div class="content pure-u-1 pure-u-md-3-4">
+				<h2>{{shop_category}}药房</h2> {% block content %}
+				<div id="sidebar">
+					<h3>药房
+                        <a href="http://0.0.0.0:8000/shop/">ALL</a>
+                        {% for b in shop_categorys %}
+					{% if category %}
+						<a href=?shop={{ b }}&ill={{category}} {% if shop_category == b %}style="color:red"{% endif %}>{{b}}</a>
+					{% else %}
+						<a href=?shop={{ b }} {% if shop_category == b %}style="color:red"{% endif %}>{{b}}</a>
+					{% endif %}
+					{% endfor %}</h3>
+					<h3>病症
+                        <a href="http://0.0.0.0:8000/shop/">ALL</a>
+<!---->
+						{% for a in categories %}
+					{% if shop_category %}
+						<a href=?shop={{shop_category}}&ill={{ a }} {% if category == a %}style="color:red"{% endif %}>{{a}}</a>
+						{% else %}
+						<a href=?ill={{ a }} {% if category == a %}style="color:red"{% endif %}>{{a}}</a>
+						{% endif %}{% endfor %}
+<!---->
+					</h3></div>{% endblock %}
+				<!--<form action="http://0.0.0.0:8000/user/login/" method="POST">-->
+				<form>
+				<button type="submit">进货</button>
+				<table width="400" border="1">
+                <tr>
+					  <th align="left">药房</th>
+                      <th align="left">药品编号</th>
+                      <th align="left">药品名字</th>
+                      <th align="left">供应商</th>
+                      <th align="left">过期日期</th>
+                      <th align="left">主治病症</th>
+					  <th align="left">库存</th>
+					  <th align="left">进货单价</th>
+					  <th align="left">进货数量</th>
+
+                </tr>
+                {% for c in products %}
+                <tr>
+					  <th align="left">{{ c.pno.pname }}</th>
+                      <th align="left">{{ c.dno.dno }}</th>
+                      <th align="left">{{ c.dno.dname }}</th>
+                      <th align="left">{{ c.dno.sno.sname }}</th>
+                      <th align="left">{{ c.dno.ddate }}</th>
+                      <th align="left">{{ c.dno.dill }}</th>
+					  <th align="left">{{ c.d_count }}</th>
+					  <th align="left">？？</th>
+					  <th align="left"><input type="text" name={{c.pno.pname}}+{{c.dno.dno}} size="1"/></th>
+                </tr>
+					{% endfor %}</table></form></div>
+		</div>
+		<script type="text/javascript">
+			}</script>
+	</body>
+
+</html>
