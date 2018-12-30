@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.shortcuts import render, get_object_or_404
 from produce.models import drug5142,produce5142
 from user.models import supply5142,staff5142
-from stock.models import shop5142,bill5142
+from stock.models import shop5142,bill5142,stock5142
 from django.db import transaction
 
 
@@ -18,7 +18,6 @@ def produce_list(request):
     shop_slug_str = queryset2list(shop_slugs)
 
     products = produce5142.objects.filter()
-    print(products)
     ill_slug = request.GET.get('ill','')
     supply_slug = request.GET.get('supply','')
     shop_slug = request.GET.get('shop','')
@@ -28,12 +27,13 @@ def produce_list(request):
     if supply_slug !='':
         drug_snos = supply5142.objects.filter(sname=supply_slug)
         products = products.filter(sno__in=drug_snos)
-
     drug_dno = products.values_list("dno")
     drug_dno = queryset2list(drug_dno)
     drug_sno = products.values_list("sno")
     drug_sno = queryset2list(drug_sno)
     result_2=[]
+    print(len(drug_dno))
+    print(len(bill5142.objects.filter()))
     for i in range(0,len(drug_dno)):
         result_1=[]
         if shop_slug !='':
@@ -41,13 +41,15 @@ def produce_list(request):
             m = bill5142.objects.filter(dno=drug_dno[i], sno=drug_sno[i],ano=shop_pnos['pno']).values("ano", "drug_b_count").first()
         else:
             m=bill5142.objects.filter(dno=drug_dno[i],sno=drug_sno[i]).values("ano","drug_b_count").first()
-        if m:
-            result_1.append(products[i])
+        if m :
             n=shop5142.objects.filter(pno=m['ano']).values("pname").first()
-            result_1.append(n['pname'])
-            result_1.append(m['drug_b_count'])
-            result_2.append(result_1)
-    print(len(result_2))
+            print(n)
+            if n:
+                result_1.append(products[i])
+                result_1.append(n['pname'])
+                result_1.append(m['drug_b_count'])
+                result_2.append(result_1)
+
     return render(request,
                   'produce_index.html',
                   {
@@ -75,17 +77,21 @@ def make_drug(request):
     except:
         return redirect('/index/', )
     if request.method == 'POST':
-        # try:
-        if True:
+        try:
+        # if True:
             dno = request.POST.get('dno_')
             dname = request.POST.get('dname_')
             ddate = request.POST.get('ddate_')
             dill = request.POST.get('dill_')
             pname = request.POST.get('pname_')
             drug_count = request.POST.get('drug_count_')
-            per_s_money = request.POST.get('per_s_money_')
+            per_p_money = request.POST.get('per_p_money_')
+            shop_object=shop5142.objects.get(pname=pname)
             with transaction.atomic():
                 durg_object=drug5142.objects.create(dno=dno,sno=supply_object,dname=dname,ddate=ddate,dill=dill)###????
-                produce5142.objects.create(sno=supply_object,dno=durg_object,drug_count=drug_count,per_s_money=per_s_money,s_done='1')
-            print(dno,dname,ddate,dill,pname,drug_count,per_s_money)
+                produce5142.objects.create(sno=supply_object,dno=durg_object,drug_count=drug_count,per_s_money=per_p_money,s_done='1')
+                stock5142.objects.create(pno=shop_object,dno=durg_object,d_count=drug_count,per_p_money=per_p_money)
+            print(dno,dname,ddate,dill,pname,drug_count,per_p_money)
             return redirect('/supply/',)
+        except:
+            return redirect('/index/', )

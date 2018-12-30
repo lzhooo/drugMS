@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.shortcuts import render, get_object_or_404
 from produce.models import drug5142,produce5142
-from stock.models import stock5142
+from stock.models import stock5142,bill5142
 from stock.models import shop5142
+from user.models import supply5142,staff5142
+
+from django.contrib.auth.decorators import login_required
 
 def stock_list(request):
     ill_slugs =  list(set(drug5142.objects.values_list('dill')))
@@ -56,3 +59,22 @@ def queryset2list(a):
     for i in a:
         shop_slug_str.append(''.join(i))
     return shop_slug_str
+
+
+@login_required
+def stock_drug(request):
+    try:
+        shop=request.user
+        staff_object=staff5142.objects.get(ano=shop,aposition='admin')
+    except:
+        return redirect('/index/', )
+    dno = request.POST.get('dno_')
+    sname = request.POST.get('sname_')
+    drug_count = request.POST.get('drug_count_')
+    drug_object=drug5142.objects.get(dno=dno)
+    supply_object=supply5142.objects.get(sname=sname)
+    bill5142.objects.create(ano=staff_object,dno=drug_object,sno=supply_object,drug_b_count=drug_count)
+    return redirect('/shop/', )
+
+
+
