@@ -26,7 +26,6 @@ class bill5142(models.Model):
     bno = models.CharField(primary_key=True, max_length=10)
     drug_b_count = models.IntegerField(blank=True, null=True)
     dno = models.ForeignKey(drug5142, models.DO_NOTHING, db_column='dno', blank=True, null=True)
-    per_p_money = models.IntegerField(blank=True, null=True)
     ano = models.ForeignKey(staff5142, models.DO_NOTHING, db_column='ano', blank=True, null=True)
 
     class Meta:

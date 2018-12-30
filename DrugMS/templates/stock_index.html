@@ -63,22 +63,30 @@
 					  <th align="left">进货数量</th>
 
                 </tr>
-                {% for c in products %}
+
                 <tr>
-					  <th align="left">{{ c.pno.pname }}</th>
-                      <th align="left">{{ c.dno.dno }}</th>
-                      <th align="left">{{ c.dno.dname }}</th>
-                      <th align="left">{{ c.dno.sno.sname }}</th>
-                      <th align="left">{{ c.dno.ddate }}</th>
-                      <th align="left">{{ c.dno.dill }}</th>
-					  <th align="left">{{ c.d_count }}</th>
-					  <th align="left">？？</th>
+					{% for c in products %}
+					  <th align="left">{{ c.0.pno.pname }}</th>
+                      <th align="left">{{ c.0.dno.dno }}</th>
+                      <th align="left">{{ c.0.dno.dname }}</th>
+                      <th align="left">{{ c.0.dno.sno.sname }}</th>
+                      <th align="left">{{ c.0.dno.ddate }}</th>
+                      <th align="left">{{ c.0.dno.dill }}</th>
+					  <th align="left">{{ c.0.d_count }}</th>
+					  <th align="left">{{ c.1 }}</th>
 					  <th align="left"><input type="text" name={{c.pno.pname}}+{{c.dno.dno}} size="1"/></th>
-                </tr>
-					{% endfor %}</table></form></div>
+                	</tr>{% endfor %}
+
+					</table></form></div>
 		</div>
 		<script type="text/javascript">
-			}</script>
+			document.getElementByClass("td1").innerHTML =setValue();
+			function setValue(){
+
+var randomNum=Math.random();
+return randomNum;
+}
+			</script>
 	</body>
 
 </html>
