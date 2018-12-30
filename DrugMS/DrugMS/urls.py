@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^customer/', include('buy.urls', namespace='customer')),
     url(r'^shop/', include('stock.urls', namespace='shop')),
     url(r'^supply/', include('produce.urls', namespace='supply')),
+    url(r'^', include('user.urls', namespace='user')),
+
 ]

@@ -27,7 +27,7 @@
 			<div class="content pure-u-1 pure-u-md-3-4">
 				<h2>{{supply_category}}供应商</h2> {% block content %}
 				<div id="sidebar">
-
+					<form action="http://0.0.0.0:8000/supply/make/" method="POST">
 					<table width="400" border="1">
 					<tr>
                       <th align="left">药品编号</th>
@@ -39,16 +39,16 @@
 						<th align="left">单价</th>
 					</tr>
 					<tr>
-                      <th align="left"><input type="text" size="1"/></th>
-                      <th align="left"><input type="text" size="1"/></th>
-                      <th align="left"><input type="text" size="1"/></th>
-                      <th align="left"><input type="text" size="1"/></th>
-                      <th align="left"><input type="text" size="1"/></th>
-						<th align="left"><input type="text" size="1"/></th>
-						<th align="left"><input type="text" size="1"/></th>
+                      <th align="left"><input type="text" name="dno_"  size="1"/></th>
+                      <th align="left"><input type="text" name="dname_" size="1"/></th>
+                      <th align="left"><input type="text" name="ddate_" size="1"/></th>
+                      <th align="left"><input type="text" name="dill_" size="1"/></th>
+                      <th align="left"><input type="text" name="pname_" size="1"/></th>
+						<th align="left"><input type="text" name="drug_count_" size="1"/></th>
+						<th align="left"><input type="text" name="per_s_money_" size="1"/></th>
 					</tr>
 					</table>
-					<button type="submit">制药</button>
+					<button type="submit">制药</button></form>
 					<br>
 					<h2>历史制药</h2>
 					<h3>供应商
