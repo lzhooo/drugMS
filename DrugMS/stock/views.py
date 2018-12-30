@@ -29,18 +29,18 @@ def stock_list(request):
         d=drug5142.objects.filter(dno=i).values("sno").first()
         drug_sno.append(d['sno'])
     drug_s_money=[]
+
     for i in range(0,len(drug_dno)):
         m=produce5142.objects.filter(dno=drug_dno[i],sno=drug_sno[i]).values("per_s_money").first()
         drug_s_money.append(m['per_s_money'])
-    print(drug_s_money)
-    print(products[0])
     result_2=[]
-    for i in range(0,len(drug_dno)):
-        result_1=[]
-        result_1.append(products[i])
-        result_1.append(drug_s_money[i])
-        result_2.append(result_1)
-        print(result_2)
+    if len(drug_dno)>0:
+        for i in range(0,len(drug_dno)):
+            result_1=[]
+            result_1.append(products[i])
+            result_1.append(drug_s_money[i])
+            result_2.append(result_1)
+            print(result_2)
     return render(request,
                   'stock_index.html',
                   {

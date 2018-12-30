@@ -27,6 +27,30 @@
 			<div class="content pure-u-1 pure-u-md-3-4">
 				<h2>{{supply_category}}供应商</h2> {% block content %}
 				<div id="sidebar">
+
+					<table width="400" border="1">
+					<tr>
+                      <th align="left">药品编号</th>
+                      <th align="left">药品名字</th>
+                      <th align="left">过期日期</th>
+                      <th align="left">主治病症</th>
+                      <th align="left">供给药房</th>
+						<th align="left">数量</th>
+						<th align="left">单价</th>
+					</tr>
+					<tr>
+                      <th align="left"><input type="text" size="1"/></th>
+                      <th align="left"><input type="text" size="1"/></th>
+                      <th align="left"><input type="text" size="1"/></th>
+                      <th align="left"><input type="text" size="1"/></th>
+                      <th align="left"><input type="text" size="1"/></th>
+						<th align="left"><input type="text" size="1"/></th>
+						<th align="left"><input type="text" size="1"/></th>
+					</tr>
+					</table>
+					<button type="submit">制药</button>
+					<br>
+					<h2>历史制药</h2>
 					<h3>供应商
                         <a href="http://0.0.0.0:8000/supply/">ALL</a>
                         {% for b in supply_categorys %}
@@ -36,6 +60,17 @@
 						<a href=?supply={{ b }} {% if supply_category == b %}style="color:red"{% endif %}>{{b}}</a>
 					{% endif %}
 					{% endfor %}</h3>
+
+					<h3>供给药房
+                        <a href="http://0.0.0.0:8000/supply/">ALL</a>
+                        {% for b in shop_categorys %}
+					{% if category %}
+						<a href=?shop={{ b }}&ill={{category}} {% if shop_category == b %}style="color:red"{% endif %}>{{b}}</a>
+					{% else %}
+						<a href=?shop={{ b }} {% if shop_category == b %}style="color:red"{% endif %}>{{b}}</a>
+					{% endif %}
+					{% endfor %}</h3>
+
 					<h3>病症
                         <a href="http://0.0.0.0:8000/supply/">ALL</a>
 <!---->
@@ -49,7 +84,6 @@
 					</h3></div>{% endblock %}
 				<!--<form action="http://0.0.0.0:8000/user/login/" method="POST">-->
 				<form>
-				<button type="submit">进货</button>
 				<table width="400" border="1">
                 <tr>
                       <th align="left">药品编号</th>
@@ -57,21 +91,20 @@
                       <th align="left">供应商</th>
                       <th align="left">过期日期</th>
                       <th align="left">主治病症</th>
-					  <!--<th align="left">库存</th>-->
-					  <!--<th align="left">进货单价</th>-->
-					  <!--<th align="left">进货数量</th>-->
-
+					  <th align="left">供给药房</th>
+					  <th align="left">供给数量</th>
+					  <th align="left">供给单价</th>
                 </tr>
                 {% for c in products %}
                 <tr>
-                      <th align="left">{{ c.dno }}</th>
-                      <th align="left">{{ c.dname }}</th>
-                      <th align="left">{{ c.sno.sname }}</th>
-                      <th align="left">{{ c.ddate }}</th>
-                      <th align="left">{{ c.dill }}</th>
-					  <th align="left">??</th>
-					  <th align="left">？？</th>
-					  <!--<th align="left"><input type="text" name={{c.pno.pname}}+{{c.dno.dno}} size="1"/></th>-->
+                      <th align="left">{{ c.0.dno.dno }}</th>
+                      <th align="left">{{ c.0.dno.dname }}</th>
+                      <th align="left">{{ c.0.sno.sname }}</th>
+                      <th align="left">{{ c.0.dno.ddate }}</th>
+                      <th align="left">{{ c.0.dno.dill }}</th>
+					  <th align="left">{{c.1}}</th>
+					  <th align="left">{{c.2}}</th>
+					  <th align="left">{{c.0.per_s_money}}</th>
                 </tr>
 					{% endfor %}</table></form></div>
 		</div>

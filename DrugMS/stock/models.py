@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import staff5142
+from user.models import staff5142,supply5142
 from produce.models import drug5142
 # Create your models here.
 class shop5142(models.Model):
@@ -23,11 +23,12 @@ class stock5142(models.Model):
         unique_together = (('pno', 'dno'),)
 
 class bill5142(models.Model):
-    bno = models.CharField(primary_key=True, max_length=10)
-    drug_b_count = models.IntegerField(blank=True, null=True)
     dno = models.ForeignKey(drug5142, models.DO_NOTHING, db_column='dno', blank=True, null=True)
     ano = models.ForeignKey(staff5142, models.DO_NOTHING, db_column='ano', blank=True, null=True)
+    sno = models.ForeignKey(supply5142, models.DO_NOTHING, db_column='sno')
+    drug_b_count = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = True
         db_table = '进货单5142'
+        unique_together = (('dno', 'ano', 'sno'),)
