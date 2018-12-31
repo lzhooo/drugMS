@@ -27,6 +27,10 @@ class bill5142(models.Model):
     ano = models.ForeignKey(staff5142, models.DO_NOTHING, db_column='ano', blank=True, null=True)
     sno = models.ForeignKey(supply5142, models.DO_NOTHING, db_column='sno')
     drug_b_count = models.IntegerField(blank=True, null=True)
+    bno = models.CharField(primary_key=True, max_length=10)
+    per_b_money = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(blank=True, null=True)
+    s_done = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = True

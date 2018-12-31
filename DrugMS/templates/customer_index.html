@@ -47,9 +47,22 @@
 						{% endif %}{% endfor %}
 
 					</h3></div>{% endblock %}
-				<!--<form action="http://0.0.0.0:8000/user/login/" method="POST">-->
-				<form>
-				<button type="submit">购买</button>
+				<form action="http://0.0.0.0:8000/customer/buy/" method="POST">
+				<table width="400" border="1">
+					<tr>
+						<th align="left">药房</th>
+						<th align="left">药品编号</th>
+						<th align="left">购买数量</th>
+					</tr>
+					<tr>
+						<th align="left"><input type="text" name="pname_" size="1"/></th>
+						<th align="left"><input type="text" name="dno_" size="1"/></th>
+						<th align="left"><input type="text" name="d_count_" size="1"/></th>
+						<th><button type="submit">购买</button></th>
+
+					</tr></table>
+					</form>
+				<br>
 				<table width="400" border="1">
                 <tr>
 					  <th align="left">药房</th>
@@ -60,7 +73,6 @@
                       <th align="left">主治病症</th>
 					  <th align="left">库存</th>
 					  <th align="left">单价</th>
-					  <th align="left">购买数量</th>
 
                 </tr>
                 {% for c in products %}
@@ -73,9 +85,8 @@
                       <th align="left">{{ c.dno.dill }}</th>
 					  <th align="left">{{ c.d_count }}</th>
 					  <th align="left">{{ c.per_p_money }}</th>
-					  <th align="left"><input type="text" name={{c.pno.pname}}+{{c.dno.dno}} size="1"/></th>
                 </tr>
-					{% endfor %}</table></form></div>
+					{% endfor %}</table></div>
 		</div>
 		<script type="text/javascript">
 			}</script>
