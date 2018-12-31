@@ -132,20 +132,6 @@ class 5142(models.Model):
 
 
 class 5142(models.Model):
-    sno = models.ForeignKey(5142, models.DO_NOTHING, db_column='sno')
-    dno = models.ForeignKey(5142, models.DO_NOTHING, db_column='dno')
-    drug_count = models.IntegerField()
-    per_s_money = models.IntegerField()
-    s_done = models.IntegerField(blank=True, null=True)
-    id = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = '制药5142'
-        unique_together = (('sno', 'dno'),)
-
-
-class 5142(models.Model):
     ano = models.CharField(primary_key=True, max_length=10)
     aposition = models.CharField(max_length=20, blank=True, null=True)
     aname = models.CharField(max_length=20, blank=True, null=True)
@@ -158,8 +144,8 @@ class 5142(models.Model):
 class 5142(models.Model):
     pno = models.ForeignKey(5142, models.DO_NOTHING, db_column='pno')
     dno = models.ForeignKey(5142, models.DO_NOTHING, db_column='dno')
-    d_count = models.IntegerField()
-    per_p_money = models.IntegerField()
+    d_count = models.IntegerField(blank=True, null=True)
+    per_p_money = models.IntegerField(blank=True, null=True)
     id = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -196,23 +182,28 @@ class 5142(models.Model):
     cno = models.ForeignKey(5142, models.DO_NOTHING, db_column='cno')
     drug_b_count = models.IntegerField(blank=True, null=True)
     per_c_money = models.IntegerField(blank=True, null=True)
+    pno = models.ForeignKey(5142, models.DO_NOTHING, db_column='pno')
+    bdate = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = '购买5142'
-        unique_together = (('dno', 'cno'),)
+        unique_together = (('dno', 'cno', 'pno', 'bdate'),)
 
 
 class 5142(models.Model):
-    dno = models.ForeignKey(5142, models.DO_NOTHING, db_column='dno')
-    ano = models.ForeignKey(5142, models.DO_NOTHING, db_column='ano')
-    sno = models.ForeignKey(5142, models.DO_NOTHING, db_column='sno')
+    bno = models.CharField(primary_key=True, max_length=10)
+    ano = models.ForeignKey(5142, models.DO_NOTHING, db_column='ano', blank=True, null=True)
+    sno = models.ForeignKey(5142, models.DO_NOTHING, db_column='sno', blank=True, null=True)
+    dno = models.ForeignKey(5142, models.DO_NOTHING, db_column='dno', blank=True, null=True)
     drug_b_count = models.IntegerField(blank=True, null=True)
+    per_b_money = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(blank=True, null=True)
+    s_done = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = '进货单5142'
-        unique_together = (('dno', 'ano', 'sno'),)
 
 
 class 5142(models.Model):

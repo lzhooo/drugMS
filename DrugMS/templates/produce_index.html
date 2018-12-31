@@ -30,27 +30,19 @@
 					<form action="http://0.0.0.0:8000/supply/make/" method="POST">
 					<table width="400" border="1">
 					<tr>
-                      <th align="left">药品编号</th>
-                      <th align="left">药品名字</th>
-                      <th align="left">过期日期</th>
-                      <th align="left">主治病症</th>
-                      <th align="left">供给药房</th>
-						<th align="left">数量</th>
+                      <th align="left">订单编号</th>
 						<th align="left">单价</th>
+						<th align="left">确认</th>
 					</tr>
 					<tr>
-                      <th align="left"><input type="text" name="dno_"  size="1"/></th>
-                      <th align="left"><input type="text" name="dname_" size="1"/></th>
-                      <th align="left"><input type="text" name="ddate_" size="1"/></th>
-                      <th align="left"><input type="text" name="dill_" size="1"/></th>
-                      <th align="left"><input type="text" name="pname_" size="1"/></th>
-						<th align="left"><input type="text" name="drug_count_" size="1"/></th>
-						<th align="left"><input type="text" name="per_p_money_" size="1"/></th>
+                      <th align="left"><input type="text" name="bno_"  size="1"/></th>
+                      <th align="left"><input type="text" name="per_b_money_" size="1"/></th>
+                     <th align="left"><button type="submit">制药</button></th>
 					</tr>
 					</table>
-					<button type="submit">制药</button></form>
+					</form>
 					<br>
-					<h2>历史制药</h2>
+
 					<h3>供应商
                         <a href="http://0.0.0.0:8000/supply/">ALL</a>
                         {% for b in supply_categorys %}
@@ -83,9 +75,37 @@
 <!---->
 					</h3></div>{% endblock %}
 				<!--<form action="http://0.0.0.0:8000/user/login/" method="POST">-->
-				<form>
+				<h2>当前订单</h2>
 				<table width="400" border="1">
                 <tr>
+					<th align="left">订单编号</th>
+                      <th align="left">药品编号</th>
+                      <th align="left">药品名字</th>
+                      <th align="left">供应商</th>
+                      <th align="left">过期日期</th>
+                      <th align="left">主治病症</th>
+					  <th align="left">供给药房</th>
+					  <th align="left">供给数量</th>
+					  <th align="left">供给单价</th>
+                </tr>
+                {% for c in products2 %}
+                <tr>
+                      <th align="left">{{ c.0.bno }}</th>
+                      <th align="left">{{ c.0.dno.dno }}</th>
+                      <th align="left">{{ c.0.dno.dname }}</th>
+                      <th align="left">{{ c.0.sno.sname }}</th>
+                      <th align="left">{{ c.0.dno.ddate }}</th>
+                      <th align="left">{{ c.0.dno.dill }}</th>
+					  <th align="left">{{c.1.pname}}</th>
+					  <th align="left">{{c.0.drug_b_count}}</th>
+					  <th align="left">{{c.0.per_b_money}}</th>
+                </tr>
+					{% endfor %}</table>
+			<br>
+				<h2>历史制药</h2>
+				<table width="400" border="1">
+                <tr>
+					<th align="left">订单编号</th>
                       <th align="left">药品编号</th>
                       <th align="left">药品名字</th>
                       <th align="left">供应商</th>
@@ -97,16 +117,18 @@
                 </tr>
                 {% for c in products %}
                 <tr>
+                      <th align="left">{{ c.0.bno }}</th>
                       <th align="left">{{ c.0.dno.dno }}</th>
                       <th align="left">{{ c.0.dno.dname }}</th>
                       <th align="left">{{ c.0.sno.sname }}</th>
                       <th align="left">{{ c.0.dno.ddate }}</th>
                       <th align="left">{{ c.0.dno.dill }}</th>
-					  <th align="left">{{c.1}}</th>
-					  <th align="left">{{c.2}}</th>
-					  <th align="left">{{c.0.per_s_money}}</th>
+					  <th align="left">{{c.1.pname}}</th>
+					  <th align="left">{{c.0.drug_b_count}}</th>
+					  <th align="left">{{c.0.per_b_money}}</th>
                 </tr>
-					{% endfor %}</table></form></div>
+					{% endfor %}</table>
+			</div>
 		</div>
 		<script type="text/javascript">
 			}</script>
