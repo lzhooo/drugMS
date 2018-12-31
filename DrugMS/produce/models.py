@@ -6,7 +6,7 @@ class drug5142(models.Model):
     dno = models.CharField(primary_key=True, max_length=10)
     sno = models.ForeignKey(supply5142, models.DO_NOTHING, db_column='sno')
     dname = models.CharField(max_length=20)
-    ddate = models.DateTimeField()
+    ddate = models.DateTimeField(auto_now_add=True)
     dill = models.CharField(max_length=20)
 
     class Meta:

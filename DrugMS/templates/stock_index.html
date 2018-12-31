@@ -26,6 +26,30 @@
 			</div>
 			<div class="content pure-u-1 pure-u-md-3-4">
 				<h2>{{shop_category}}药房</h2> {% block content %}
+				<br>
+				<form action="http://0.0.0.0:8000/shop/stock/" method="POST">
+					<table width="400" border="1">
+					<tr>
+                      <th align="left">药品编号</th>
+					  <th align="left">药品名字</th>
+						<th align="left">主治病症</th>
+                      <th align="left">供应商</th>
+						<th align="left">数量</th>
+						<th align="left">售价</th>
+					</tr>
+					<tr>
+                      <th align="left"><input type="text" name="dno_"  size="1"/></th>
+                      <th align="left"><input type="text" name="dname_" size="1"/></th>
+						<th align="left"><input type="text" name="dill_" size="1"/></th>
+						<th align="left"><input type="text" name="sname_" size="1"/></th>
+						<th align="left"><input type="text" name="drug_b_count_" size="1"/></th>
+						<th align="left"><input type="text" name="per_b_money_" size="1"/></th>
+						<th><button type="submit">进货</button></th>
+					</tr>
+					</table>
+					</form>
+
+
 				<div id="sidebar">
 					<h3>药房
                         <a href="http://0.0.0.0:8000/shop/">ALL</a>
@@ -48,22 +72,6 @@
 <!---->
 					</h3></div>{% endblock %}
 
-
-
-				<form action="http://0.0.0.0:8000/shop/stock/" method="POST">
-					<table width="400" border="1">
-					<tr>
-                      <th align="left">药品编号</th>
-                      <th align="left">供应商</th>
-						<th align="left">数量</th>
-					</tr>
-					<tr>
-                      <th align="left"><input type="text" name="dno_"  size="1"/></th>
-                      <th align="left"><input type="text" name="sname_" size="1"/></th>
-						<th align="left"><input type="text" name="drug_count_" size="1"/></th>
-					</tr>
-					</table>
-					<button type="submit">进货</button></form>
 				<table width="400" border="1">
                 <tr>
 					  <th align="left">药房</th>
@@ -74,6 +82,7 @@
                       <th align="left">主治病症</th>
 					  <th align="left">库存</th>
 					  <th align="left">进货单价</th>
+					  <th align="left">售价</th>
 
                 </tr>
 
@@ -87,9 +96,35 @@
                       <th align="left">{{ c.0.dno.dill }}</th>
 					  <th align="left">{{ c.0.d_count }}</th>
 					  <th align="left">{{ c.1 }}</th>
+					  <th align="left">{{ c.0.per_p_money }}</th>
                 	</tr>{% endfor %}
 
-					</table></div>
+					</table>
+			<br>
+			<h3>待处理药品</h3>
+				<table width="400" border="1">
+					<tr>
+                      <th align="left">进货编号</th>
+                      <th align="left">药品编号</th>
+					  <th align="left">药品名字</th>
+						<th align="left">主治病症</th>
+                      <th align="left">供应商</th>
+						<th align="left">数量</th>
+						<th align="left">售价</th>
+					</tr>
+					<tr>
+						{% for d in drug_doing %}
+                      <th align="left">{{d.bno}}</th>
+                      <th align="left">{{d.dno.dno}}</th>
+                      <th align="left">{{d.dno.dname}}</th>
+						<th align="left">{{d.dno.dill}}</th>
+						<th align="left">{{d.sno.sname}}</th>
+						<th align="left">{{d.drug_b_count}}</th>
+						<th align="left">{{d.per_b_money}}</th>
+					</tr>{% endfor %}
+					</table>
+			</div>
+
 		</div>
 		<script type="text/javascript">
 			document.getElementByClass("td1").innerHTML =setValue();
