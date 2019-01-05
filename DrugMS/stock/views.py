@@ -13,7 +13,10 @@ def stock_list(request):
 
     shop_slugs = list(set(shop5142.objects.values_list('pname')))
     shop_slug_str=queryset2list(shop_slugs)
-    products = stock5142.objects.filter()
+    ano=request.user
+    admin_object = staff5142.objects.get(ano=ano)
+    shop_object = shop5142.objects.get(pno=admin_object.ano)
+    products = stock5142.objects.filter(pno=shop_object)
     ill_slug = request.GET.get('ill','')
     shop_slug = request.GET.get('shop','')
     if ill_slug != '':
@@ -45,7 +48,7 @@ def stock_list(request):
             result_2.append(result_1)
             print(result_2)
 
-    drug_doing = bill5142.objects.filter(s_done=0)
+    drug_doing = bill5142.objects.filter(s_done=0,ano=admin_object)
     if ill_slug != '':
         ill_dnos = drug5142.objects.filter(dill=ill_slug)
         drug_doing = drug_doing.filter(dno__in=ill_dnos)
