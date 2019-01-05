@@ -21,8 +21,8 @@ def produce_list(request):
     ill_slug = request.GET.get('ill','')
     supply_slug = request.GET.get('supply','')
     shop_slug = request.GET.get('shop','')
-    drug_done = choose(ill_slug,shop_slug,supply_slug,1)
-    drug_doing = choose(ill_slug,shop_slug,supply_slug,0)
+    drug_done = choose(request,ill_slug,shop_slug,supply_slug,1)
+    drug_doing = choose(request,ill_slug,shop_slug,supply_slug,0)
     return render(request,
                   'produce_index.html',
                   {
@@ -36,8 +36,10 @@ def produce_list(request):
                       'products2':drug_doing
                   })
 
-def choose(ill_slug,shop_slug,supply_slug,key):
-    drug_done = bill5142.objects.filter(s_done=key)
+def choose(request,ill_slug,shop_slug,supply_slug,key):
+    supply = request.user
+    supply_object = supply5142.objects.get(sno=supply)
+    drug_done = bill5142.objects.filter(s_done=key,sno=supply_object)
     if ill_slug != '':
         ill_dnos = drug5142.objects.filter(dill=ill_slug)
         drug_done = drug_done.filter(dno__in=ill_dnos)
